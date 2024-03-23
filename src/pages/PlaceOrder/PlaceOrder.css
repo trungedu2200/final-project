@@ -60,3 +60,13 @@
         flex-direction: column;
     }
 }
+
+.order-placed-message {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .order-placed-message p {
+    font-size: 30px;
+    color: #333;
+  }

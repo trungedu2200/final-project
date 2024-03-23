@@ -37,6 +37,8 @@ const StoreContextProvider = (props) => {
         console.log(deliveryData);
     }
 
+
+
     const contextValue = {
         food_list,
         menu_list,

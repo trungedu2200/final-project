@@ -16,23 +16,47 @@ const PlaceOrder = () => {
         zipcode: "",
         country: "",
         phone: ""
-    })
+    });
+
+    const [orderPlaced, setOrderPlaced] = useState(false);
+    const [formValid, setFormValid] = useState(false);
 
     const { getTotalCartAmount, placeOrder } = useContext(StoreContext);
-
     const navigate = useNavigate();
-
-    const onChangeHandler = (event) => {
-        const name = event.target.name
-        const value = event.target.value
-        setData(data => ({ ...data, [name]: value }))
-    }
 
     useEffect(() => {
         if (getTotalCartAmount() === 0) {
-            navigate('/')
+            navigate('/');
         }
-    }, [])
+    }, []);
+
+    const onChangeHandler = (event) => {
+        const { name, value } = event.target;
+        setData({ ...data, [name]: value });
+    };
+
+    const handlePlaceOrder = () => {
+        if (isFormValid()) {
+            placeOrder(data);
+            setOrderPlaced(true);
+        } else {
+            alert('Please fill in all required fields.');
+        }
+    };
+
+    const isFormValid = () => {
+        return (
+            data.firstName !== "" &&
+            data.lastName !== "" &&
+            data.email !== "" &&
+            data.street !== "" &&
+            data.city !== "" &&
+            data.state !== "" &&
+            data.zipcode !== "" &&
+            data.country !== "" &&
+            data.phone !== ""
+        );
+    };
 
     return (
         <div className='place-order'>
@@ -65,18 +89,23 @@ const PlaceOrder = () => {
                         <div className="cart-total-details"><b>Total</b><b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 5}</b></div>
                     </div>
                 </div>
-                <div className="payment-options">
-                    <h2>Select Payment Method</h2>
-                    <div className="payment-option">
-                        <img src={assets.selector_icon} alt="" />
-                        <p>COD ( Cash On Delivery )</p>
+                {!orderPlaced ? (
+                    <div className='payment-options'>
+                        <h2>Select Payment Method</h2>
+                        <div className='payment-option'>
+                            <img src={assets.selector_icon} alt='' />
+                            <p>COD (Cash On Delivery)</p>
+                        </div>
+                        <button onClick={handlePlaceOrder}>PLACE ORDER</button>
                     </div>
-                    <button onClick={() => placeOrder(data)}>PLACE ORDER</button>
-                </div>
-
+                ) : (
+                    <div className='order-placed-message'>
+                        <p>Thank you for ordering! Your order will be at your home in 30 minutes.</p>
+                    </div>
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default PlaceOrder

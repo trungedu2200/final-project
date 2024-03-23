@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import Cart from './pages/Cart/Cart'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
-import MyOrders from './pages/MyOrders/MyOrders'
+import Testing from './components/Testing/Testing'
 
 const App = () => {
 
@@ -21,7 +21,6 @@ const App = () => {
           <Route path='/' element={<Home/>}/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/order' element={<PlaceOrder/>}/>
-          <Route path='/myorder' element={<MyOrders/>}/>
         </Routes>
       </div>
       <Footer />
